@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- CLAVE PARA CELULAR -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Preguntas y Respuestas</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+
+      background-image: url("img/fondo.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .quiz-container {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 25px;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.97);
+    }
+
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .error { color: red; }
+    .success { color: green; }
+
+    /* PREMIO */
+    .premio {
+      display: none;
+      font-size: 48px;
+      font-weight: bold;
+      color: gold;
+      text-align: center;
+      text-shadow: 3px 3px 8px black;
+      padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .premio {
+        font-size: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="quiz-container" id="quizBox">
+  <h2 id="question"></h2>
+
+  <input 
+    type="text" 
+    id="answer" 
+    placeholder="Escribí tu respuesta"
+    autocomplete="off"
+  >
+
+  <button onclick="checkAnswer()">Responder</button>
+
+  <div class="message" id="message"></div>
+</div>
+
+<div class="premio" id="premio">
+  🎉 DATE DE CAPSULA DEL TIEMPO 🎉<br>
+  🎉              +             🎉<br>
+  🎉        MOUSE GAMER         🎉
+</div>
+
+<script>
+  const questions = [
+    { question: "¿Soy más de mate, café o té? (en la actualidad)", answer: "mate" },
+    { question: "¿Qué emocion me cuesta más decir?", answer: "el enojo" },
+    { question: "¿Qué cancion pongo cuando estoy triste?", answer: "no surprises" },
+    { question: "¿Que es lo que más me gusta de estas epocas?(es algo comestible)", answer: "el pan dulce" }
+  ];
+
+  let currentQuestion = 0;
+
+  const questionEl = document.getElementById("question");
+  const answerEl = document.getElementById("answer");
+  const messageEl = document.getElementById("message");
+  const quizBox = document.getElementById("quizBox");
+  const premioEl = document.getElementById("premio");
+
+  function loadQuestion() {
+    questionEl.textContent = questions[currentQuestion].question;
+    answerEl.value = "";
+    messageEl.textContent = "";
+    answerEl.focus();
+  }
+
+  function checkAnswer() {
+    const userAnswer = answerEl.value.trim().toLowerCase();
+    const correctAnswer = questions[currentQuestion].answer.toLowerCase();
+
+    if (userAnswer === correctAnswer) {
+      messageEl.textContent = "¡Correcto! 🎉";
+      messageEl.className = "message success";
+      currentQuestion++;
+
+      if (currentQuestion < questions.length) {
+        setTimeout(loadQuestion, 700);
+      } else {
+        mostrarPremio();
+      }
+    } else {
+      messageEl.textContent = "Respuesta incorrecta ❌";
+      messageEl.className = "message error";
+    }
+  }
+
+  function mostrarPremio() {
+    quizBox.style.display = "none";
+    premioEl.style.display = "block";
+  }
+
+  loadQuestion();
+</script>
+
+</body>
+</html>
