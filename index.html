@@ -35,6 +35,13 @@
       text-align: center;
     }
 
+    /* TITULO */
+    .titulo {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
     h2 {
       font-size: 22px;
       margin-bottom: 15px;
@@ -95,6 +102,8 @@
 <body>
 
 <div class="quiz-container" id="quizBox">
+  <div class="titulo">🎮 Preguntitas :) 🎮</div>
+
   <h2 id="question"></h2>
 
   <input 
@@ -161,6 +170,12 @@
   function mostrarPremio() {
     quizBox.style.display = "none";
     premioEl.style.display = "block";
+
+    // CERRAR / SALIR AUTOMÁTICAMENTE
+    setTimeout(() => {
+      window.close();
+      window.location.href = "about:blank";
+    }, 4000);
   }
 
   loadQuestion();
@@ -168,4 +183,5 @@
 
 </body>
 </html>
+
 
